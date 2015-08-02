@@ -1,0 +1,74 @@
+{% extends "sudo/base.html" %}
+
+{% block head %}
+<meta name="csrf-token" value="{{ csrf_token() }}">
+<link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/css/bootstrap-datetimepicker.min.css#020d2295534b87593f7717a9d0fd81d42faaff92"
+rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <form data-bind="submit: sendNewElection">
+            <h3>
+                Nueva Votación
+                <button type="submit" class="btn btn-primary pull-right">Guardar Votación</button>
+            </h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="reason">Motivo de Votación</label>
+                        <input type="text" name="reason" class="form-control" data-bind="textInput: reason">
+                    </div>
+                    <div class="form-group">
+                        <label>Desde</label>
+                        <input type="text" name="begindate" class="form-control datetime">
+
+                        <label>Hasta</label>
+                        <input type="text" name="enddate" class="form-control datetime">
+                    </div>
+                    <div class="form-group">
+                        <h4>Campus de votación</h4>
+
+                        <div class="btn-group form-group btn-group-vertical center-block" data-toggle="buttons" data-bind="radio: selectedCampus, css: { hidden: campusList().length == 0 }">
+                            <!-- ko foreach: campusList -->
+                            <label class="btn btn-primary">
+                                <input type="radio" name="campus" data-bind="value: $data.value">
+                                <span data-bind="text: $data.pretty"></span>
+                            </label>
+                            <!-- /ko-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>
+                        Opciones
+                        <button class="btn btn-primary btn-sm" data-bind="click: addOption">Agregar opción</button>
+                    </h4>
+                <!-- ko foreach: electionOptions -->
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-xs pull-right" data-bind="click: $parent.removeOption">Eliminar</button>
+                        <label>Nombre de opción</label>
+                        <input type="text" class="form-control input-sm" data-bind="textInput: name">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Explicación" class="form-control input-sm" rows="3" data-bind="textInput: detail"></textarea>
+                    </div>
+                <!-- /ko -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
+<script src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/build/js/bootstrap-datetimepicker.min.js#020d2295534b87593f7717a9d0fd81d42faaff92">
+</script>
+<script src="{{url_for('static', filename='scripts/sudo/new_election.js')}}"></script>
+{% endblock %}

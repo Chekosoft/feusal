@@ -1,0 +1,64 @@
+{% extends "elections/base.html" %}
+
+{% block head %}
+<meta name="csrf-token" value="{{ csrf_token() }}">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>Votación: {{election.reason}}</h1>
+        </div>
+
+        <h3>Opciones</h3>
+
+        <div class="row">
+
+        {% with boxSize = 12/(election.electionOptions | length)%}
+        {% for option in election.electionOptions %}
+        <div class="col-md-{{boxSize|int}}">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">Opcion {{option.name}}</h3>
+                    <p>{{option.detail}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endwith %}
+        </div>
+
+        <div class="row"><div class="col-md-6 col-md-offset-3">
+            <form data-bind="submit: sendVote">
+                <h2>Elegir Opción</h2>
+                <div class="btn-group form-group btn-group-justified" data-toggle="buttons" data-bind="radio: selectedOption">
+                {% for option in election.electionOptions %}
+                    <label class="btn btn-info">
+                        <input type="radio" name="option" value="{{option.name}}">
+                        {{option.name}}
+                    </label>
+                {% endfor %}
+                </div>
+
+                <div class="hidden"
+                data-bind="alert: { message: resultMessage, type: resultType }, css: { hidden: !resultMessage() }"></div>
+
+                <button type="submit"
+                    class="hidden btn btn-block btn-primary" data-bind="css: { hidden: !selectedOption() }">
+                    Enviar voto
+                </button>
+            </form>
+        </div></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js" type="text/javascript"></script>
+<script src="{{url_for('static', filename='scripts/knockstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='scripts/elections/vote.js')}}"></script>
+{% endblock %}

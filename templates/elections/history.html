@@ -1,0 +1,47 @@
+{% extends "elections/base.html" %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="page-header">
+            <h2>Archivo de votaciones <small>Listado de todas las votaciones en el sistema</small></h2>
+        </div>
+
+        {% if (elections|length) == 0 %}
+            <div class="alert alert-info text-center">
+                <strong>No hay elecciones para listar.</strong>
+            </div>
+        {% endif %}
+
+
+        <div class="list-group">
+            {% for election in elections %}
+                <a href="{{url_for('electiondetail', election_id = election['_id'])}}" class="list-group-item">
+                    <h4 class="list-group-item-heading">
+                        {{election['reason']}}
+                        <small>({{campus_data[election['selectedCampus']]}})</small>
+                    </h4>
+                    <p class="list-group-item-text">
+                        <strong>Desde </strong> {{election.date_from.strftime("%Y-%m-%d %H:%M:%S")}}
+                        <strong>hasta </strong> {{election.date_until.strftime("%Y-%m-%d %H:%M:%S")}}
+                    </p>
+                </a>
+            {% endfor %}
+        </div>
+
+        <p>
+            {% if current_page > 0 %}
+                <a href="{{ url_for('election_history', page=current_page - 1) }}" class="btn btn-default pull-left">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Página Anterior
+                </a>
+            {% endif %}
+
+            {% if (elections|length) == 20 %}
+                <a href="{{ url_for('election_history', page=current_page + 1) }}" class="btn btn-default pull-right">
+                    Página Siguiente <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}

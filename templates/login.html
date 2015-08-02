@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block head %}
+<link href="{{url_for('static', filename='feusal-login.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+
+<div class="login-screen">
+    <div class="well">
+        <p class="text-center">
+            <h2 class="text-center">Sistema de Votaciones Online</h2>
+        </p>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+            <div class="alert alert-danger">
+                <strong>Error: </strong> {{message}}
+            </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <p class="text-center">
+            <a href="{{ url_for('login_sansano') }}" class="btn btn-default">Entrar con @sansano.usm.cl</a>
+            <a href="{{ url_for('login_alumnos') }}" class="btn btn-default">Entrar con @alumnos.usm.cl</a>
+        </p>
+        <p class="text-center">
+            <a href="#">Acerca de</a> | <a href="https://github.com/Chekosoft/feusal" target="_blank">GitHub</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

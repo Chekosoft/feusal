@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+}
+
+.flash {
+    width: 100%;
+    padding: 0.3em;
+    margin: 0.6em auto;
+    border: 1px solid #888;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.flash.error {
+    background-color: rgba(127,0,0,0.3);
+}
+
+.flash.success{
+    background-color: rgba(0,127,0,0.3);
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    margin-bottom: 5px;
+    padding-top: 10px;
+    z-index: 10;
+    background-color: #fff;
+}
+
+.header .beta {
+    font-size: 2rem;
+    color: #AAA;
+}
+
+.header .beta:before{
+    content: '\1D6C2';
+}
+
+.header > .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin: 0px auto;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    margin: 0px auto;
+    max-width: 960px;
+    width: 960px;
+}
+
+.separator {
+    height: 90px;
+}
+
+.button.large {
+    font-size: 1.6rem;
+    height: 50px;
+    line-height: 50px;
+}
+
+.text-center{
+    text-align: center;
+}

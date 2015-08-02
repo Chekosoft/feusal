@@ -1,0 +1,59 @@
+{% extends "elections/base.html" %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="col-md-6 col-md-offset-3">
+        {% with flashes = get_flashed_messages() %}
+        {% for flash in flashes %}
+        <div class="alert alert-info">
+            <strong>Un mensaje: </strong>{{ flash }}
+        </div>
+        {% endfor %}
+        {% endwith %}
+
+        <div class="page-header">
+            <h2>Votaciones vigentes<p><small>Votaciones en las cuales usted puede participar.</small></p></h2>
+        </div>
+
+        <div class="alert alert-info text-center" data-bind="css: { hidden: elections().length > 0 }">
+            Cargando lista de resultados...
+        </div>
+
+        <div class="list-group hidden" data-bind="css: { hidden: elections().length == 0 && !noResults() }">
+            <!-- ko foreach: {data: elections, as: 'election'} -->
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading">
+                        <span data-bind="text: election.reason"></span>
+                        <small>Desde
+                        <strong data-bind="text: moment(election.date_from['$date']).format('DD/MM/YYYY HH:mm')">
+                        </strong>
+                        hasta
+                        <strong data-bind="text: moment(election.date_until['$date']).format('DD/MM/YYYY HH:mm')">
+                        </strong></small>
+                    </h4>
+                    <div class="text-center btn-group btn-group-sm btn-group-justified">
+                        <a class="btn btn-primary"
+                        data-bind="attr: { href: '/elections/vote/' + election._id['$oid'] }">Votar</a>
+                        <a class="btn btn-default"
+                        data-bind="attr: { href: '/elections/detail/' + election._id['$oid'] }">Ver resultados</a>
+                    </div>
+                </div>
+            <!-- /ko-->
+
+            <button class="btn btn-info btn-large btn-block" data-bind="{enable: canLoadMore, click: getMoreElections}">
+                Cargar mas votaciones
+            </button>
+        </div>
+
+        <div class="alert alert-danger hidden" data-bind="css: { hidden: !noResults() }">
+            <strong>No hay votaciones en las cuales usted pueda participar.</strong>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script>moment.locale('es');</script>
+<script src="{{url_for('static', filename='scripts/elections/election_list.js')}}"></script>
+{% endblock %}

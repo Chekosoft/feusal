@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block header %}
+{% include "header.html" %}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h3>Administración</h3>
+
+            <div class="list-group text-center">
+                <a class="list-group-item" href="{{url_for('new_election')}}">
+                    <h4 class="list-group-item-heading">
+                        Crear Nueva Votación
+                    </h4>
+                </a>
+                <a class="list-group-item" href="#">
+                    <h4 class="list-group-item-heading">
+                        Verificar Votaciones
+                    </h4>
+                </a>
+                <a class="list-group-item" href="{{url_for('manage_campuses')}}">
+                    <h4 class="list-group-item-heading">
+                        Administrar Campuses
+                    </h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}

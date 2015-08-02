@@ -1,0 +1,30 @@
+{% extends "errors/base.html" %}
+
+{% block title %}La página no se encuentra{% endblock %}
+
+{% block body %}
+<div class="login-screen">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="well">
+                <h2>Página no encontrada (404)</h2>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="thumbnail">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Eliseo_Salazar_%281%29.jpg">
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center">
+                    El es <strong>Eliseo Salazar</strong>, famoso piloto de carreras de origen chileno. <br>
+                    En el Dakar 2011 no dobló a la izquierda y se perdió, al igual que tu en éste momento.
+                </p>
+                <p class="text-center">
+                    <a href="{{ url_for('index')}}" class="btn btn-primary">Haz click aquí para volver al inicio.</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}{% if self.title() %} - {% endif %}Sistema de Votaciones Online</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/sandstone/bootstrap.min.css" rel="stylesheet">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% block header %}{% endblock %}
+
+    {% block body %}{% endblock %}
+
+    {% block footer %}{% endblock %}
+
+    {% block scripts %}{% endblock %}
+</body>
+<!-- Con &hearts; para todos quienes solo lloran por Facebook. -->
+</html>

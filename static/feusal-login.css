@@ -1,0 +1,22 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.login-screen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.inner-border {
+    border: 1px solid #BBB;
+    border-radius: 5px;
+    padding: 1.2em;
+    height: auto;
+}
