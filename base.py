@@ -14,7 +14,7 @@ csrf = CsrfProtect(app)
 def page_not_found(e):
     return render_template('errors/404.html'), 404
 
-@app.errorhandler(503):
+@app.errorhandler(503)
 def not_authorized(e):
     return render_template('errors/503.html'), 503
 
