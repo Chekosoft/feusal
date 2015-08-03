@@ -17,14 +17,12 @@ elections = db.elections
 
 #sudo index
 @app.route('/sudo/')
-@requires_login
 @requires_sudo
 def sudo_index():
     return render_template('sudo/index.html')
 
 #Campus management
 @app.route('/sudo/campuses', methods=['GET', 'POST'])
-@requires_login
 @requires_sudo
 def manage_campuses():
     if request.method == 'POST' and request.is_xhr:
@@ -49,17 +47,16 @@ def manage_campuses():
 
 
 @app.route('/sudo/campuses/list')
-@requires_login
 @requires_sudo
 def get_campuses_list():
     campus_list = admin.find_one({'param': u'campus_list'})
-    print campus_list
     return jsonify({'campuses': [] if campus_list is None \
                     else campus_list['value']})
 
 #Election management
 
 @app.route('/sudo/elections/new', methods=['GET', 'POST'])
+@requires_sudo
 def new_election():
     if request.method == 'POST' and request.is_xhr:
         form = NewElectionForm.from_json(request.get_json(),

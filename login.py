@@ -74,6 +74,8 @@ def requires_sudo(f):
     def wrapper(*args, **kwargs):
         if not session._get_current_object().get('sudo', False):
             abort(403)
+        elif not session._get_current_object().get('oauth2_token', False):
+            return redirect(url_for('login'))
         return f(*args, **kwargs)
     return wrapper
 
