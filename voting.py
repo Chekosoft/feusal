@@ -111,8 +111,6 @@ def electiondetail(election_id):
                      campus_data['value'])[0]['pretty']
     #ENDFIXME
 
-    print campus
-
     election_summary = db.elections.aggregate([
         { '$match': { '_id': ObjectId(election_id) } },
         { '$project': { 'votes': 1 } },
