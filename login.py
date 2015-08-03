@@ -17,7 +17,6 @@ mongoclient = pymongo.MongoClient()
 db = mongoclient.feusal
 
 oauth = OAuth()
-random_state = os.urandom(16).encode('hex')
 
 #FIXME: Find a way to unify both auth methods
 alumnos_usm = oauth.remote_app('google.alumnosusm',
@@ -31,8 +30,7 @@ alumnos_usm = oauth.remote_app('google.alumnosusm',
         request_token_params={
             'scope': ['https://www.googleapis.com/auth/userinfo.email'],
             'hd': 'alumnos.usm.cl',
-            'access_type': 'online',
-            'state': random_state
+            'access_type': 'online'
         }
     )
 
@@ -47,8 +45,7 @@ sansano_usm = oauth.remote_app('google.sansanousm',
         request_token_params={
             'scope': ['https://www.googleapis.com/auth/userinfo.email'],
             'hd': 'sansano.usm.cl',
-            'access_type': 'online',
-            'state': random_state
+            'access_type': 'online'
         }
     )
 
@@ -105,10 +102,6 @@ def finish_login_request(realm):
         resp = sansano_usm.authorized_response()
     else:
         flash(u'El proceso de autenticación no terminó en los puntos determinados')
-
-    if request.args.get('state', None) != random_state:
-        flash(u'Se generó un intento de inicio de sesión fuera del sistema.')
-        return redirect(url_for('login'))
 
     if resp is None:
         flash(u'No se aceptaron los permisos necesarios para ingresar al sistema.')
