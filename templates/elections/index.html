@@ -19,7 +19,7 @@
             Cargando lista de resultados...
         </div>
 
-        <div class="list-group hidden" data-bind="visible: !isLoading">
+        <div class="list-group" data-bind="visible: !isLoading">
             <!-- ko foreach: {data: elections, as: 'election'} -->
                 <div class="list-group-item">
                     <h4 class="list-group-item-heading">
@@ -45,7 +45,7 @@
             </button>
         </div>
 
-        <div class="alert alert-danger hidden" data-bind="visible: !isLoading && elections().length == 0">
+        <div class="alert alert-danger" data-bind="visible: !isLoading && elections().length == 0">
             <strong>No hay votaciones en las cuales usted pueda participar.</strong>
         </div>
     </div>
